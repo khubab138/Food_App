@@ -4,7 +4,7 @@ import FoodData from "../assets/FoodData";
 
 const FoodItems = ({id, name, price, desc, rating, img}) => {
   return (
-    <div>
+    <div className="flex flex-wrap gap-10 justify-center lg:justify-start m-20">
       {FoodData.map((food) => {
         return (
           <Card
