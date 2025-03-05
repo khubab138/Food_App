@@ -3,7 +3,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../Redux/slices/CartSlices";
+import { removeFromCart, incrementQty, decrementQty } from "../Redux/slices/CartSlices";
 
 const ItemsCart = ( {name, id, price, img, qty}) => {
 
@@ -25,9 +25,9 @@ const dispatch = useDispatch()
                 <div className="flex justify-between " >
                     <span className="text-green-500 font-semibold">RS {price}</span>
                     <div className="flex absolute right-7 m3">
-                        <CiCirclePlus className=" rounded-full text-gray-500 hover:text-white hover:bg-green-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
+                        <CiCircleMinus onClick={()=>{ qty >= 1? dispatch(decrementQty(id)): qty=1}} className=" rounded-full text-gray-500 hover:text-white hover:bg-red-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
                         <span>{qty}</span>
-                        <CiCircleMinus className=" rounded-full text-gray-500 hover:text-white hover:bg-red-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
+                        <CiCirclePlus className=" rounded-full text-gray-500 hover:text-white hover:bg-green-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
                     </div>
                 </div>
             </div>
