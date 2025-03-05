@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { IoCartOutline } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdTranslate } from "react-icons/md";
+import { nanoid } from "@reduxjs/toolkit";
 
 
 const Cart = () => {
@@ -24,10 +25,10 @@ const cartItems = useSelector((state)=> state.cart.cart)
           <IoMdClose onClick={()=>{setActive(!active)}} className=" cursor-pointer border-2 border-gray-700 text-gray-700 rounded text-xl hover:text-red-500 hover:border-red-500" />
         </div>
 
-          {cartItems.map((food)=>{
+          {cartItems.length > 0 ? cartItems.map((food)=>{
            return <ItemsCart key={food.id} id={food.id} name={food.name} price={food.price} img={food.img} qty={food.qty} />
 
-          })}
+          }) : <h2 className="font-semibold text-gray-500 text-center">Your Cart Is Empty</h2> }
           
 
         <div className="absolute bottom-0 ">
