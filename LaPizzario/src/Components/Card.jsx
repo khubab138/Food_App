@@ -4,7 +4,7 @@ import FoodItems from "./FoodItems";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/slices/CartSlices";
 
-const Card = ({ id, name, price, desc, rating, img }) => {
+const Card = ({ id, name, price, desc, rating, img, handleToast }) => {
   const dispatch = useDispatch();
 
   return (
@@ -23,7 +23,11 @@ const Card = ({ id, name, price, desc, rating, img }) => {
         <span className="flex justify-center items-center">
           <IoMdStar className="mr-1 text-yellow-400" /> {rating}
         </span>
-        <button  onClick={()=>{dispatch(addToCart({id, name, price, rating, img, qty:1}))}} className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-sm">
+        <button  onClick={()=>{dispatch(
+          addToCart({id, name, price, rating, img, qty:1}))
+        handleToast(name);
+        }}
+        className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-sm">
 
           Add to Cart
         </button>

@@ -4,6 +4,8 @@ import { CiCircleMinus } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { removeFromCart, incrementQty, decrementQty } from "../Redux/slices/CartSlices";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const ItemsCart = ( {name, id, price, img, qty}) => {
 
@@ -13,6 +15,7 @@ const dispatch = useDispatch()
         <div className="flex gap-2 shadow-md rounded-lg p-2 mb-3">
                <MdDeleteOutline onClick={()=>{
                 dispatch(removeFromCart({id}))
+                toast.error(`Removed ${name}`)
                }} className="absolute right-7 text-gray-500 cursor-pointer hover:bg-red-500 hover:text-white hover:rounded-full hover:border-red-500 "/>
             <img
                 src={img}
@@ -25,9 +28,9 @@ const dispatch = useDispatch()
                 <div className="flex justify-between " >
                     <span className="text-green-500 font-semibold">RS {price}</span>
                     <div className="flex absolute right-7 m3">
-                        <CiCircleMinus onClick={()=>{ qty >= 1? dispatch(decrementQty(id)): qty=1}} className=" rounded-full text-gray-500 hover:text-white hover:bg-red-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
+                        <CiCircleMinus onClick={()=>{ qty > 1 ? dispatch(decrementQty({id})) : qty = 0}} className=" rounded-full text-gray-500 hover:text-white hover:bg-red-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
                         <span>{qty}</span>
-                        <CiCirclePlus className=" rounded-full text-gray-500 hover:text-white hover:bg-green-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
+                        <CiCirclePlus onClick={()=>{ qty < 1 ? dispatch(incrementQty({id})) : qty = 0}} className=" rounded-full text-gray-500 hover:text-white hover:bg-green-500 hover:border-none p-1  text-3xl transition ease-linear cursor-pointer" />
                     </div>
                 </div>
             </div>
