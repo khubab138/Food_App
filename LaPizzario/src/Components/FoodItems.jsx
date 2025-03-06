@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useSelector } from "react-redux";
 
 const FoodItems = ({ id, name, price, desc, rating, img }) => {
+  const search = useSelector((state)=> state.search.search)
 
   const category = useSelector((state) => state.category.category);
 
@@ -19,9 +20,9 @@ const FoodItems = ({ id, name, price, desc, rating, img }) => {
       <div className="flex flex-wrap gap-10 justify-center lg:justify-start m-20">
         {FoodData.filter((food) => {
           if (category === "All") {
-            return true;
+            return food.name.toLowerCase().includes(search.toLowerCase());
           } else {
-            return food.category === category; // Ensure you have 'category' property in your data
+            return food.category === category && food.name.toLowerCase().includes(search.toLowerCase());
           }
         }).map((food) => (
           <Card

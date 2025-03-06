@@ -6,15 +6,17 @@ import { IoCartOutline } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdTranslate } from "react-icons/md";
 import { nanoid } from "@reduxjs/toolkit";
-
+import {useNavigate} from "react-router-dom"
 
 const Cart = () => {
 
- const [active, setActive] = useState(true)
+ const [active, setActive] = useState(false)
 
 const cartItems = useSelector((state)=> state.cart.cart)
 const totalQty = cartItems.reduce((totalQty, item)=> totalQty + item.qty, 0)
 const totalPrice = cartItems.reduce((total, item)=> total + item.qty * item.price , 0)
+
+const navigate = useNavigate()
 
   return (
     <>
@@ -36,7 +38,9 @@ const totalPrice = cartItems.reduce((total, item)=> total + item.qty * item.pric
           <h3 className="font-semibold text-gray-500">items:{totalQty} </h3>
           <h3 className="font-semibold text-gray-500">Total: {totalPrice} </h3>
           <hr className="w-[90vw] lg:w-[17vw] my-2" />
-          <button  className="mb-10 bg-green-500 font-bold text-white p-2 rounded-lg w-[90vw] lg:w-[17vw]">
+          <button  
+          onClick={()=>navigate("/success")}
+          className="mb-10 bg-green-500 font-bold text-white p-2 rounded-lg w-[90vw] lg:w-[17vw]">
             CheckOut
           </button>
         </div>
