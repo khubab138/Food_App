@@ -2,35 +2,42 @@ import React from "react";
 import Card from "./Card";
 import FoodData from "../assets/FoodData";
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from "react-redux";
 
+const FoodItems = ({ id, name, price, desc, rating, img }) => {
 
-const FoodItems = ({id, name, price, desc, rating, img}) => {
-const handleToast = (n)=> toast.success(` Added ${n}`)
-   
-  return (<>
+  const category = useSelector((state) => state.category.category);
 
+  const handleToast = (n) => toast.success(`Added ${n}`);
 
-<Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
-    <div className="flex flex-wrap gap-10 justify-center lg:justify-start m-20">
-      {FoodData.map((food) => {
-        return (
+  return (
+    <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <div className="flex flex-wrap gap-10 justify-center lg:justify-start m-20">
+        {FoodData.filter((food) => {
+          if (category === "All") {
+            return true;
+          } else {
+            return food.category === category; // Ensure you have 'category' property in your data
+          }
+        }).map((food) => (
           <Card
-          key={food.id}
-          id={food.id}
-          name={food.name}
-          price={food.price}
-          desc={food.desc}
-          rating={food.rating}
-          img={food.img}
-          handleToast={handleToast}
+            key={food.id}
+            id={food.id}
+            name={food.name}
+            price={food.price}
+            desc={food.desc}
+            rating={food.rating}
+            img={food.img}
+            handleToast={handleToast}
           />
-        );
-      })}
-    </div>
-    </> );
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default FoodItems;
